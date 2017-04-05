@@ -1,0 +1,23 @@
+{
+    "name": "smarthacks/noauth",
+    "description": "AN awesome authentication API that solves developer's nightmare in providing secure authentication",
+    "type": "project",
+    "require": {
+        "slim/slim": "^3.8",
+        "slim/twig-view": "^2.2",
+        "catfan/Medoo": "^1.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "xXAlphaManXx",
+            "email": "smartclashcoc@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload":{
+        "psr-4":{
+            "App\\": "app/"
+        }
+    }
+}
