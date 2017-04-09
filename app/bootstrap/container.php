@@ -23,3 +23,8 @@ $container['db'] = function($container)
 {
     return new \Medoo\Medoo($container['settings']['db']);
 };
+
+$container['AuthController'] = function($container)
+{
+    return new \App\Controllers\AuthController($container);
+};

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: alphaman
- * Date: 4/5/17
- * Time: 3:29 AM
- */
 
 namespace App\Controllers;
 
@@ -30,17 +24,17 @@ class AuthController extends Controller
     {
         $data = $req->getParsedBody();
 
-        $username = htmlspecialchars($data['username']);
+        $email = htmlspecialchars($data['email']);
         $password = htmlspecialchars($data['password']);
 
-        if(isset($username) && isset($password))
+        if(isset($email) && isset($password))
         {
-            $result = $this->db->select('users', '*', ['username' => $username]);
+            $result = $this->db->select('users', '*', ['email' => $email]);
 
             if(password_verify($password, $result['password'])){
 
                 $_SESSION = [
-                    'username'          => $username,
+                    'email'             => $email,
                     'allowedPatchSize'  => $result['allowedPatchSize'],
                     'accountTYpe'       => $result['accountTYpe'],
                     'usedPatches'       => $result['usedPatches'],
@@ -55,8 +49,30 @@ class AuthController extends Controller
         }
     }
 
-    public function getsignup()
+    public function getsignup($req, $res, $args)
     {
-        // todo Get signup method via POST method
+        $data = $req->getParsedBody();
+
+        $email    = htmlspecialchars($data['email']);
+        $password = htmlspecialchars($data['password']);
+
+        if(!isset($email) && !isset($password)){ return 'Oops, either the email or password was missing'; }
+
+        $rows = $this->db->select('users', '*', ['email' => $email]);
+
+        if(count($rows) === 0)
+        {
+            $this->db->insert("users", [
+                'email'     => $email,
+                'password'  => password_hash($password, PASSWORD_BCRYPT),
+                'patchUsed' => 0,
+                'patchAvail'=> 10,
+                'type'      => 0,
+            ]);
+
+            return 'Created your account. Login to your account.';
+        } else {
+            return 'This email is already registered';
+        }
     }
 }

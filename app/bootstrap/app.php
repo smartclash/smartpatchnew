@@ -8,10 +8,10 @@ $app = new \Slim\App([
 
         'db' => [
             'database_type' => 'mysql',
-            'database_name' => 'patchy',
-            'server'        => 'localhost',
-            'username'      => 'root',
-            'password'      => 'amaramar',
+            'database_name' => 'smartcla_patchy',
+            'server'        => '31.220.17.160',
+            'username'      => 'smartcla_deploy',
+            'password'      => 'deploy',
             'charset'       => 'utf8',
         ],
     ],
